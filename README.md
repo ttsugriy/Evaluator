@@ -1,5 +1,5 @@
 # Evaluator
-Simple evaluator.
+Simple expression evaluator.
 
 [![Build Status](https://travis-ci.org/ttsugriy/Evaluator.svg?branch=master)](https://travis-ci.org/ttsugriy/Evaluator)
 
@@ -37,6 +37,34 @@ The last step is to actually produce the binary by running
 make
 ```
 You will now find the `Evaluator` binary inside of `build` directory.
+
+## Using
+
+`Evaluator` binary takes a single argument with a path to a file containing expressions
+in the form of `LHS = RHS` where `LHS` is a variable identifier and `RHS` is either
+an unsigned integer, variable name or their sum. For example, when it's invoked by running
+```
+Evaluator input
+```
+where `input` file contains
+```
+x = 1 + y + 2
+y = z + 3
+z = 2
+```
+
+The output will be
+```
+x = 8
+y = 5
+z = 2
+```
+
+Note that variables can be defined in any order, but are assumed to not contain
+any circular references, since it's impossible to evaluate such expressions. Current
+implementation does not have a built-in cycle detection, even though it's easy to
+add by using one of many cycle detection algoriths for graphs by modelling expressions
+as nodes and variable references as edges.
 
 ## Running the tests
 
